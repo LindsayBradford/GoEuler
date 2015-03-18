@@ -5,12 +5,12 @@ package Problems
 
 func BuildProblem(problemID uint) Problem {
   var newProblem Problem
-	switch problemID {
-		case 1:
-		  newProblem = new(Problem1) 
-		default:
-		  newProblem = new(ProblemBase)
-	}
-	newProblem.Initialise()
-	return newProblem
+  switch problemID {
+    case 1:
+      newProblem = new(Problem1) 
+    default:
+      newProblem = new(ProblemBase)
+  }
+  newProblem.Initialise()
+  return newProblem
 }

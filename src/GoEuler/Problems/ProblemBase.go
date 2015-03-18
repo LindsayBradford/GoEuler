@@ -4,19 +4,19 @@
 package Problems
 
 type Problem interface {
-	Initialise()
+  Initialise()
 
-	GetID() uint
-	GetTitle() string
-	GetDescription() string
-	GetAnswer() string
-	
-	CalculateAnswer()
-	IsVerified() bool
+  GetID() uint
+  GetTitle() string
+  GetDescription() string
+  GetAnswer() string
+  
+  CalculateAnswer()
+  IsVerified() bool
 } 
 
 type ProblemBase struct {
-	Problem
+  Problem
   id          uint
   title       string
   description string
@@ -25,35 +25,33 @@ type ProblemBase struct {
 }
 
 func (this *ProblemBase) Initialise() {
-	this.id = 0
-	this.title = "No problem title supplied."
-	this.description = "No problem description supplied."
-	this.answer = "No answer generated."
-	this.verified = false
+  this.id = 0
+  this.title = "No problem title supplied."
+  this.description = "No problem description supplied."
+  this.answer = "No answer generated."
+  this.verified = false
 }
 
 func (this *ProblemBase) GetID() uint {
-	return this.id
+  return this.id
 }
 
 func (this *ProblemBase) GetTitle() string {
-	return this.title
+  return this.title
 }
 
 func (this *ProblemBase) GetDescription() string {
-	return this.description
+  return this.description
 }
 
 func (this *ProblemBase) GetAnswer() string {
-	return this.answer
+  return this.answer
 }
 
 func (this *ProblemBase) CalculateAnswer() {
-	this.answer = "Some answer supplied."
+  this.answer = "Some answer supplied."
 }
 
 func (this *ProblemBase) IsVerified() bool {
   return this.verified	
 }
-
-type ProblemList []*Problem

@@ -5,7 +5,7 @@
 package CommandLine
 
 import (
-	"Config"
+  "Config"
   "flag"
   "fmt"
   "os"
@@ -24,10 +24,10 @@ func (args *Arguments) Process() {
 func (args *Arguments) define() {
 
  flag.BoolVar(
-  	&args.Version, 
-  	"Version", 
-  	false, 
-  	"Prints the version number of this utility and exits.",
+    &args.Version, 
+    "Version", 
+    false, 
+    "Prints the version number of this utility and exits.",
   )
   
   flag.UintVar(

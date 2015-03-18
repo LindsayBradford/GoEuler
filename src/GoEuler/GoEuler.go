@@ -5,7 +5,7 @@ package main
 
 import (
   "CommandLine"
-	"DaftLog"
+  "DaftLog"
   . "GoEuler/Problems" 
 )
 
@@ -16,25 +16,25 @@ func main() {
   
   DaftLog.SetFormat(DaftLog.TIME_ONLY_FORMAT)
   
-	DaftLog.LogEntry(CommandLine.GetVersionString())
-	DaftLog.LogEntry("Project Euler via Go, (c) 2015, Lindsay Bradford.")
+  DaftLog.LogEntry(CommandLine.GetVersionString())
+  DaftLog.LogEntry("Project Euler via Go, (c) 2015, Lindsay Bradford.")
 	
 	process(
-  	BuildProblem(args.ProblemID),
+    BuildProblem(args.ProblemID),
 	)
 }
 
 func process(thisProblem Problem) {
-	thisProblem.Initialise()
+  thisProblem.Initialise()
 
-	DaftLog.FormattedLogEntry("Problem %d: %s", thisProblem.GetID(), thisProblem.GetTitle())
+  DaftLog.FormattedLogEntry("Problem %d: %s", thisProblem.GetID(), thisProblem.GetTitle())
 	
-	thisProblem.CalculateAnswer()
+  thisProblem.CalculateAnswer()
 	
-	DaftLog.FormattedLogEntry("Answer  %d: %s", thisProblem.GetID(), thisProblem.GetAnswer())
+  DaftLog.FormattedLogEntry("Answer  %d: %s", thisProblem.GetID(), thisProblem.GetAnswer())
 	
 	if thisProblem.IsVerified() {
-		DaftLog.FormattedLogEntry("Project Euler has verified answer %d as correct.", thisProblem.GetID())
+    DaftLog.FormattedLogEntry("Project Euler has verified answer %d as correct.", thisProblem.GetID())
 	}
 }
 
