@@ -25,8 +25,6 @@ func main() {
 }
 
 func process(thisProblem Problem) {
-  thisProblem.Initialise()
-
   DaftLog.FormattedLogEntry("Problem %d: %s", thisProblem.GetID(), thisProblem.GetTitle())
 	
   thisProblem.CalculateAnswer()
