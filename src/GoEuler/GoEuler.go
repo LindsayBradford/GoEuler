@@ -21,7 +21,7 @@ func main() {
 	
   process(
     BuildProblem(args.ProblemID),
-	)
+  )
 }
 
 func process(thisProblem Problem) {
@@ -35,6 +35,6 @@ func process(thisProblem Problem) {
 
   if thisProblem.IsVerified() {
     DaftLog.FormattedLogEntry("Project Euler has verified answer %d as correct.", thisProblem.GetID())
-	}
+  }
 }
 
