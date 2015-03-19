@@ -13,7 +13,7 @@ import (
 
 type Arguments struct {
   Version bool
-  ProblemID uint
+  Problem uint
 }
 
 func (args *Arguments) Process() {
@@ -31,10 +31,10 @@ func (args *Arguments) define() {
   )
   
   flag.UintVar(
-    &args.ProblemID,
-    "ProblemID",
+    &args.Problem,
+    "Problem",
     0,
-    "ID of problem as per Projecteuler.net",
+    "Numeric Id of problem as per Projecteuler.net",
   )
   
   flag.Usage = usageMessage
@@ -46,11 +46,15 @@ func usageMessage() {
   fmt.Printf("Help for %s\n", GetVersionString())
   fmt.Println("  --Help                Prints this help message.")
   fmt.Println("  --Version             Prints the version number of this utility.")
-  fmt.Println("  --ProblemID <number>  Specifies problem ID to evaluate.")
+  fmt.Println("  --Problem <number>  Specifies problem ID to evaluate.")
   os.Exit(0)
 }
 
 func (args *Arguments) process() {
+
+  if args.Problem == 0 {
+    usageMessage()
+  }
 
   if args.Version == true {
     fmt.Println(
@@ -61,12 +65,12 @@ func (args *Arguments) process() {
 
   var mustExitWithError = false
 
-  if args.ProblemID < Config.MIN_EULER_PROBLEM_ID || args.ProblemID > Config.MAX_EULER_PROBLEM_ID {
+  if args.Problem < Config.MIN_EULER_PROBLEM_ID || args.Problem > Config.MAX_EULER_PROBLEM_ID {
      fmt.Println("Error: Invalid Euler Project ID specified.")
      mustExitWithError = true
   }
 
-  if args.ProblemID > Config.LAST_IMPLEMENTED_PROBLEM_ID {
+  if args.Problem > Config.LAST_IMPLEMENTED_PROBLEM_ID {
      fmt.Printf("Error: Project ID specified has not been implemented yet. Currently at ID: %d\n", Config.LAST_IMPLEMENTED_PROBLEM_ID)
      mustExitWithError = true
   }

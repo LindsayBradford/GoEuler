@@ -20,7 +20,7 @@ func main() {
   DaftLog.LogEntry("Project Euler via Go, (c) 2015, Lindsay Bradford.")
 	
   process(
-    BuildProblem(args.ProblemID),
+    BuildProblem(args.Problem),
   )
 }
 
@@ -31,7 +31,7 @@ func process(thisProblem Problem) {
 	
   DaftLog.FormattedLogEntry("Answer  %d: %s", thisProblem.GetID(), thisProblem.GetAnswer())
 
-  if thisProblem.IsVerified() {
+  if thisProblem.IsAnswerVerified() {
     DaftLog.FormattedLogEntry("Project Euler has verified answer %d as correct.", thisProblem.GetID())
   }
 }

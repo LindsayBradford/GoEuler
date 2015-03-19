@@ -12,16 +12,16 @@ type Problem interface {
   GetAnswer() string
   
   CalculateAnswer()
-  IsVerified() bool
+  IsAnswerVerified() bool
 } 
 
 type ProblemBase struct {
   Problem
-  id          uint
-  title       string
-  description string
-  answer      string
-  verified    bool 
+  id              uint
+  title           string
+  description     string
+  answer          string
+  answerVerified  bool 
 }
 
 func (this *ProblemBase) Initialise() {
@@ -29,7 +29,7 @@ func (this *ProblemBase) Initialise() {
   this.title = "No problem title supplied."
   this.description = "No problem description supplied."
   this.answer = "No answer generated."
-  this.verified = false
+  this.answerVerified = false
 }
 
 func (this *ProblemBase) GetID() uint {
@@ -52,6 +52,6 @@ func (this *ProblemBase) CalculateAnswer() {
   this.answer = "Some answer supplied."
 }
 
-func (this *ProblemBase) IsVerified() bool {
-  return this.verified	
+func (this *ProblemBase) IsAnswerVerified() bool {
+  return this.answerVerified	
 }

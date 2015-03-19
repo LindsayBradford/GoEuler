@@ -22,15 +22,15 @@ func (this *Problem1) Initialise() {
 }
 
 func (this *Problem1) CalculateAnswer() {
-  var factorSum uint = 0
+  var sumOfMultiples uint = 0
   
-  for i := 1; i < 1000; i++ {
+  for i := 3; i < 1000; i++ {
     var iAsFloat = float64(i)
     if math.Mod(iAsFloat,3) == 0 || math.Mod(iAsFloat,5) == 0 {
-      factorSum = factorSum + uint(i)
+      sumOfMultiples = sumOfMultiples + uint(i)
     }
   }
   
-  this.answer = fmt.Sprintf("%d", factorSum)
-  this.verified = true
+  this.answer = fmt.Sprintf("%d", sumOfMultiples)
+  this.answerVerified = true
 }
