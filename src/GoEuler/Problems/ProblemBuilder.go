@@ -8,6 +8,8 @@ func BuildProblem(problemID uint) Problem {
   switch problemID {
     case 1:
       newProblem = new(Problem1) 
+    case 2:
+      newProblem = new(Problem2) 
     default:
       newProblem = new(ProblemBase)
   }
