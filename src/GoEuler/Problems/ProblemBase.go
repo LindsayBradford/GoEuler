@@ -1,8 +1,13 @@
 // GoEuler Problems package - An implementation of Project Euler with Go.
 // (c) 2015, Lindsay Bradford
 
+// Package Problems contains a Euler Problem interface and 
+// the structures that implement it. 
 package Problems
 
+// Problem is an interface that defines those functions that  
+// allow calling code to successfully interact  with a 
+// Euler problem withouth having to know the problem specifics.
 type Problem interface {
   Initialise()
 
@@ -15,7 +20,9 @@ type Problem interface {
   IsAnswerVerified() bool
 } 
 
-type ProblemBase struct {
+// ProblemBase defines a structure that specific Euler
+// problem structures are expected to reuse via type extension.
+type problemBase struct {
   Problem
   id              uint
   title           string
@@ -24,34 +31,48 @@ type ProblemBase struct {
   answerVerified  bool 
 }
 
-func (this *ProblemBase) Initialise() {
-  this.id = 0
-  this.title = "No problem title supplied."
-  this.description = "No problem description supplied."
-  this.answer = "No answer generated."
-  this.answerVerified = false
+// The function Initialise() will initialise the content of a ProblemBase
+// structure with reasonable, generic content. 
+func (base *problemBase) Initialise() {
+  base.id = 0
+  base.title = "No problem title supplied."
+  base.description = "No problem description supplied."
+  base.answer = "No answer generated."
+  base.answerVerified = false
 }
 
-func (this *ProblemBase) GetID() uint {
-  return this.id
+// GetID returns the id number (as supplied on the Euler project) of the
+// relevant Euler problem.
+func (base *problemBase) GetID() uint {
+  return base.id
 }
 
-func (this *ProblemBase) GetTitle() string {
-  return this.title
+// GetTitle returns the title text (as supplied on the Euler project) of the
+// relevant Euler problem.
+func (base *problemBase) GetTitle() string {
+  return base.title
 }
 
-func (this *ProblemBase) GetDescription() string {
-  return this.description
+// GetTitle returns the long-form description (as supplied on the Euler project) of the
+// relevant Euler problem.
+func (base *problemBase) GetDescription() string {
+  return base.description
 }
 
-func (this *ProblemBase) GetAnswer() string {
-  return this.answer
+// CalculateAnswer generates an answer to the relavante Euler problem. Unless confirmed by
+// the Euler project, the answer is not necessarilly correct.  
+func (base *problemBase) CalculateAnswer() {
+  base.answer = "Some base answer supplied."
 }
 
-func (this *ProblemBase) CalculateAnswer() {
-  this.answer = "Some answer supplied."
+// GetAnswer returns the answer generated in attempting to solve the relevante Euler problem.
+// The answer is undefined unless the CalculateAnswer function has already been called. 
+func (base *problemBase) GetAnswer() string {
+  return base.answer
 }
 
-func (this *ProblemBase) IsAnswerVerified() bool {
-  return this.answerVerified	
+// InsAnswerVerified returns true only if the result generated from calling CalculateAnswer has
+// been verified  by the Euler project as being correct, false otherwise. 
+func (base *problemBase) IsAnswerVerified() bool {
+  return base.answerVerified	
 }

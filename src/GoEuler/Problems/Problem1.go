@@ -8,20 +8,20 @@ import (
   "math"
 )
 
-type Problem1 struct {
-  ProblemBase
+type problem1 struct {
+  problemBase
 }
 
-func (this *Problem1) Initialise() {
-  this.id = 1
-  this.title = "Multiples of 3 and 5."
-  this.description = "If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. " + 
+func (p1 *problem1) Initialise() {
+  p1.id = 1
+  p1.title = "Multiples of 3 and 5."
+  p1.description = "If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. " + 
                      " The sum of these multiples is 23." + 
                      " Find the sum of all the multiples of 3 or 5 below 1000."
-  this.answer = "Answer not calculated yet."                    
+  p1.answer = "Answer not calculated yet."                    
 }
 
-func (this *Problem1) CalculateAnswer() {
+func (p1 *problem1) CalculateAnswer() {
   var sumOfMultiples uint = 0
   
   for i := 3; i < 1000; i++ {
@@ -31,6 +31,6 @@ func (this *Problem1) CalculateAnswer() {
     }
   }
   
-  this.answer = fmt.Sprintf("%d", sumOfMultiples)
-  this.answerVerified = true
+  p1.answer = fmt.Sprintf("%d", sumOfMultiples)
+  p1.answerVerified = true
 }

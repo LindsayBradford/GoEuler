@@ -19,7 +19,11 @@ func main() {
   
   DaftLog.LogEntry(CommandLine.GetVersionString())
   DaftLog.LogEntry("Project Euler via Go, (c) 2015, Lindsay Bradford.")
-  DaftLog.FormattedLogEntry("Problems Implemented: %d", Config.LAST_IMPLEMENTED_PROBLEM_ID)
+  DaftLog.FormattedLogEntry(
+    "Problems Implemented: (%d/%d)", 
+    Config.LAST_IMPLEMENTED_PROBLEM_ID, 
+    Config.MAX_EULER_PROBLEM_ID,
+  )
   DaftLog.LogEntry("")
 	
   process(
