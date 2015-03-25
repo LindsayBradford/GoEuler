@@ -21,8 +21,8 @@ func main() {
   daftlog.Print("Project Euler via Go, (c) 2015, Lindsay Bradford.")
   daftlog.Printf(
     "Problems Implemented: (%d/%d)", 
-    config.LastImplementedEulerProblemId, 
-    config.MaxEulerProblemId,
+    config.LastImplementedEulerProblemID, 
+    config.MaxEulerProblemID,
   )
   daftlog.Print("")
 	

@@ -1,23 +1,31 @@
 // (c) 2015, Lindsay Bradford
 
-// The daftlog Package. A log so simple, it's daft
+// Package daftlog. A logging package so simple, it's daft
+
 package daftlog
 
 import (
-  "time"
   "fmt"
+  "time"
 )
 
 const (
-  FormatDateTime string = "%04d-%02d-%02d %02d:%02d:%02d"  // "yyyy-mm-dd hh:mm:ss"
-  FormatTimeOnly string = "%02d:%02d:%02d"                 // "hh:mm:ss"
-  FormatDateOnly string = "%04d-%02d-%02d"                 // "yyyy-mm-dd"
+	// FormatDateTime formats a log timestamp as per the fmt package pattern "yyyy-mm-dd hh:mm:ss"
+  FormatDateTime string = "%04d-%02d-%02d %02d:%02d:%02d"  
+
+	// FormatTimeOnly formats a log timestamp as per the fmt package pattern "hh:mm:ss"
+  FormatTimeOnly string = "%02d:%02d:%02d"
+
+	// FormatDateOnly formats a log timestamp as per the fmt package pattern "yyyy-mm-dd"
+  FormatDateOnly string = "%04d-%02d-%02d"
+  
+  // FormatDefault defines the log timestamp to use as default (FormatDateTime)
   FormatDefault         = FormatDateTime
 )
 
 var logFormat string
 
-// daftlog package initialisation. 
+// init ensures the daftlog is initialised with a default log format. 
 func init() {
   logFormat = FormatDefault
 }

@@ -2,6 +2,7 @@
 // Command-Line Argument processing pakage
 // (c) 2014, Lindsay Bradford
 
+// Package cmdline offers command-line processing for the goeuler code-base.
 package cmdline
 
 import (
@@ -12,17 +13,20 @@ import (
   "goeuler/config"
 )
 
+// Arguments is a struct holding the arguments recived from the command-line when goeuler is run.
 type Arguments struct {
   Version bool
   Licence bool
   Problem uint
 }
 
+// Process defines the command-line arguments applicable to goeuler, then processes them for usage by the application. 
 func (args *Arguments) Process() {
   args.define()
   args.process()
 }
 
+// define sets up the comand-line flags that goeuler recognises via the flag package, and parses them into args.
 func (args *Arguments) define() {
 
  flag.BoolVar(
@@ -52,6 +56,7 @@ func (args *Arguments) define() {
   flag.Parse()
 }
 
+// usageMessage prints a user-readable message of the command-line arguments supported by goeuler.
 func usageMessage() {
   fmt.Printf("Help for %s\n", GetVersionString())
   fmt.Println("  --Help              Prints this help message.")
@@ -61,6 +66,7 @@ func usageMessage() {
   os.Exit(0)
 }
 
+// process interprets the command-line arguments parsed by the define method, and responds to the user as appropriate. 
 func (args *Arguments) process() {
 
   if args.Licence == true {
@@ -83,13 +89,13 @@ func (args *Arguments) process() {
 
   var mustExitWithError = false
 
-  if args.Problem < config.MinEulerProblemId || args.Problem > config.MaxEulerProblemId {
+  if args.Problem < config.MinEulerProblemID || args.Problem > config.MaxEulerProblemID {
      fmt.Println("Error: Invalid Euler Project ID specified.")
      mustExitWithError = true
   }
 
-  if args.Problem > config.LastImplementedEulerProblemId {
-     fmt.Printf("Error: Project ID specified has not been implemented yet. Currently at ID: %d\n", config.LastImplementedEulerProblemId)
+  if args.Problem > config.LastImplementedEulerProblemID {
+     fmt.Printf("Error: Project ID specified has not been implemented yet. Currently at ID: %d\n", config.LastImplementedEulerProblemID)
      mustExitWithError = true
   }
 
@@ -98,10 +104,12 @@ func (args *Arguments) process() {
   }
 }
 
+// GetVersionString returns a user-readable string identifying the running application name and version number.
 func GetVersionString() string {
   return fmt.Sprintf("%s version %s", os.Args[0], config.Version)
 }
 
+// getLicenceString returns a user-readable string describing the copyright licence the software is released under.
 func getLicenceString() string {
   licence := 
     "\nCopyright (c) 2015, Lindsay Bradford\n" + 
