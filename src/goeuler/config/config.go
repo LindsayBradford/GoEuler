@@ -16,7 +16,7 @@ const (
   // MinEulerProblemID stores the smallest ID that Project Euler lists for its problems.
   MinEulerProblemID = 1
   
-  // MinEulerProblemID stores the largest ID that Project Euler lists for its problems.
+  // MaxEulerProblemID stores the largest ID that Project Euler lists for its problems.
   MaxEulerProblemID = 497
 
   // LastImplementedEulerProblemID stores the largest ID of the problems implemented in goeuler.
