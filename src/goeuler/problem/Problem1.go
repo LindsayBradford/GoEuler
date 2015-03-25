@@ -22,7 +22,7 @@ func (p1 *problem1) Initialise() {
 }
 
 func (p1 *problem1) CalculateAnswer() {
-  var sumOfMultiples uint = 0
+  var sumOfMultiples uint
   
   for i := 3; i < 1000; i++ {
     var iAsFloat = float64(i)

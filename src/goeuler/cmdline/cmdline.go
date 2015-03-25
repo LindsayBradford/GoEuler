@@ -2,13 +2,14 @@
 // Command-Line Argument processing pakage
 // (c) 2014, Lindsay Bradford
 
-package CommandLine
+package cmdline
 
 import (
-  "Config"
   "flag"
   "fmt"
   "os"
+
+  "goeuler/config"
 )
 
 type Arguments struct {
@@ -82,13 +83,13 @@ func (args *Arguments) process() {
 
   var mustExitWithError = false
 
-  if args.Problem < Config.MIN_EULER_PROBLEM_ID || args.Problem > Config.MAX_EULER_PROBLEM_ID {
+  if args.Problem < config.MinEulerProblemId || args.Problem > config.MaxEulerProblemId {
      fmt.Println("Error: Invalid Euler Project ID specified.")
      mustExitWithError = true
   }
 
-  if args.Problem > Config.LAST_IMPLEMENTED_PROBLEM_ID {
-     fmt.Printf("Error: Project ID specified has not been implemented yet. Currently at ID: %d\n", Config.LAST_IMPLEMENTED_PROBLEM_ID)
+  if args.Problem > config.LastImplementedEulerProblemId {
+     fmt.Printf("Error: Project ID specified has not been implemented yet. Currently at ID: %d\n", config.LastImplementedEulerProblemId)
      mustExitWithError = true
   }
 
@@ -98,7 +99,7 @@ func (args *Arguments) process() {
 }
 
 func GetVersionString() string {
-  return fmt.Sprintf("%s version %s", os.Args[0], Config.VERSION)
+  return fmt.Sprintf("%s version %s", os.Args[0], config.Version)
 }
 
 func getLicenceString() string {
