@@ -4,8 +4,10 @@
 package Problems
 
 import (
-//  "fmt"
-//  "math"
+	"fmt"
+	"math"
+
+	"goeuler/daftlog"
 )
 
 type problem3 struct {
@@ -21,7 +23,53 @@ func (p3 *problem3) Initialise() {
 }
 
 func (p3 *problem3) CalculateAnswer() {
+	
+	const BaseNumber = 600851475143
+	
+	var largestPossiblePrimeFactor = uint(math.Sqrt(BaseNumber))  // largest factor of a number is its square root.
 
-	// this.answer = fmt.Sprintf("%d", sumOfEvenFibonacciNumbers)
-	// this.answerVerified = true
+	// A prime is never even, find the largest odd to start on.
+	if math.Mod(float64(largestPossiblePrimeFactor),2) == 0 {
+		largestPossiblePrimeFactor -= 1
+	}
+	
+	daftlog.Printf("Largest possble odd factor of %d = %d", BaseNumber, largestPossiblePrimeFactor)
+	
+	var primeNotFound = true
+	
+	for (primeNotFound) {
+		if math.Mod(BaseNumber, float64(largestPossiblePrimeFactor)) == 0 {  // found an odd factor.
+		
+		  var resultOfPrimeTest string
+		
+			if isOddPrime(float64(largestPossiblePrimeFactor)) {  // is this odd factor a prime?
+				resultOfPrimeTest = fmt.Sprintf("and %d is a prime!", largestPossiblePrimeFactor)
+				primeNotFound = false  // signal that that we're done searching.
+			} else {
+				resultOfPrimeTest = fmt.Sprintf("but %d is not a prime!", largestPossiblePrimeFactor)
+			}
+		
+			daftlog.Printf("Found odd factor at %d, %s", largestPossiblePrimeFactor, resultOfPrimeTest)
+		}
+		
+		if primeNotFound {
+			largestPossiblePrimeFactor -= 2  // skip to next smaller odd number as possible factor.
+		}
+	}
+	p3.answer = fmt.Sprintf("%d", largestPossiblePrimeFactor)
+
+	p3.answerVerified = true
+}
+
+// isOddPrime tests to see if the odd number (assumed) provided is also a prime.
+func isOddPrime(testNumber float64) bool {
+	
+	var largestFactor = int(math.Sqrt(testNumber)) // largest factor of a number is its square root.
+	
+	for i := 3; i < largestFactor; i++ {
+		if math.Mod(testNumber, float64(i)) == 0 { 
+			return false
+		}
+	}
+	return true
 }
