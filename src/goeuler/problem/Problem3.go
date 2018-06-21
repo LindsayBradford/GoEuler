@@ -6,15 +6,15 @@ package Problems
 import (
 	"fmt"
 	"math"
-
-	"goeuler/daftlog"
+	"log"
 )
 
 type problem3 struct {
 	problemBase
 }
 
-func (p3 *problem3) Initialise() {
+func (p3 *problem3) Initialise(logger *log.Logger) {
+	p3.logger = logger
 	p3.id = 3
 	p3.title = "Largest prime factor."
 	p3.description = " The prime factors of 13195 are 5, 7, 13 and 29.\n" +
@@ -32,8 +32,8 @@ func (p3 *problem3) CalculateAnswer() {
 	if math.Mod(float64(largestPossiblePrimeFactor),2) == 0 {
 		largestPossiblePrimeFactor -= 1
 	}
-	
-	daftlog.Printf("Largest possble odd factor of %d = %d", BaseNumber, largestPossiblePrimeFactor)
+
+	p3.logger.Printf("Problem 3 - Largest possible odd factor of %d = %d", BaseNumber, largestPossiblePrimeFactor)
 	
 	var primeNotFound = true
 	
@@ -48,8 +48,8 @@ func (p3 *problem3) CalculateAnswer() {
 			} else {
 				resultOfPrimeTest = fmt.Sprintf("but %d is not a prime!", largestPossiblePrimeFactor)
 			}
-		
-			daftlog.Printf("Found odd factor at %d, %s", largestPossiblePrimeFactor, resultOfPrimeTest)
+
+			p3.logger.Printf("Problem 3 - Found odd factor at %d, %s", largestPossiblePrimeFactor, resultOfPrimeTest)
 		}
 		
 		if primeNotFound {

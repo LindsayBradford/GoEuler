@@ -3,11 +3,33 @@
 
 package Problems
 
+import (
+	"log"
+)
+
 // BuildProblem creates a record that implements the
 // Problem interface from the supplied ID number.
-func BuildProblem(problemID uint) Problem {
+
+type ProblemId uint
+
+type ProblemBuilder struct {
+	logger *log.Logger
+	problemId ProblemId
+}
+
+func (pb *ProblemBuilder) OfProblem(problemId uint) *ProblemBuilder {
+	pb.problemId = ProblemId(problemId)
+	return pb
+}
+
+func (pb *ProblemBuilder) WithLogger(logger *log.Logger) *ProblemBuilder {
+	pb.logger = logger
+	return pb
+}
+
+func (pb *ProblemBuilder) Build() Problem {
 	var newProblem Problem
-	switch problemID {
+	switch pb.problemId {
 	case 1:
 		newProblem = new(problem1)
 	case 2:
@@ -17,6 +39,6 @@ func BuildProblem(problemID uint) Problem {
 	default:
 		newProblem = new(problemBase)
 	}
-	newProblem.Initialise()
+	newProblem.Initialise(pb.logger)
 	return newProblem
 }

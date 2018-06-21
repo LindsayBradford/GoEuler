@@ -1,3 +1,5 @@
 .project
 /bin
 /pkg
+.idea/
+.settings/com.googlecode.goclipse.core.prefs

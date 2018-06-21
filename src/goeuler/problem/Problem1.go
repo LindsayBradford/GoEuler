@@ -6,13 +6,15 @@ package Problems
 import (
 	"fmt"
 	"math"
+	"log"
 )
 
 type problem1 struct {
 	problemBase
 }
 
-func (p1 *problem1) Initialise() {
+func (p1 *problem1) Initialise(logger *log.Logger) {
+	p1.logger = logger
 	p1.id = 1
 	p1.title = "Multiples of 3 and 5."
 	p1.description = "If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. " +

@@ -6,39 +6,60 @@ package main
 import (
 	"goeuler/cmdline"
 	"goeuler/config"
-	"goeuler/daftlog"
-	"goeuler/problem"
+	. "goeuler/problem"
+	"log"
+	"os"
+)
+
+var (
+	args     = new(cmdline.Arguments)
+	builder  = new(ProblemBuilder)
+	basicLog = log.New(os.Stdout, "", 0)
+	timedLog = log.New(os.Stdout, "", log.Ldate|log.Ltime|log.Lmicroseconds)
 )
 
 func main() {
-
-	var args = new(cmdline.Arguments)
 	args.Process()
+	reportVersionAndProblemsImplemented()
 
-	daftlog.SetFormat(daftlog.FormatTimeOnly)
+	minProblemId, maxProblemId := resolveProblemRange()
 
-	daftlog.Print(cmdline.GetVersionString())
-	daftlog.Print("Project Euler via Go, (c) 2015, Lindsay Bradford.")
-	daftlog.Printf(
+	for problemId := minProblemId; problemId <= maxProblemId; problemId++ {
+		problem := builder.
+			OfProblem(problemId).
+			WithLogger(timedLog).
+			Build()
+
+		  answer(problem)
+	}
+}
+
+func reportVersionAndProblemsImplemented() {
+	basicLog.Print(cmdline.GetVersionString())
+	basicLog.Print("Project Euler via Go, (c) 2015, Lindsay Bradford.")
+	basicLog.Printf(
 		"Problems Implemented: (%d/%d)",
 		config.LastImplementedEulerProblemID,
 		config.MaxEulerProblemID,
 	)
-	daftlog.Print("")
-
-	process(
-		Problems.BuildProblem(args.Problem),
-	)
+	basicLog.Println("")
 }
 
-func process(p Problems.Problem) {
-	daftlog.Printf("Problem %d: %s", p.GetID(), p.GetTitle())
+func resolveProblemRange() (nimProblemId uint, maxProblemId uint) {
+	if args.AllProblems {
+		return 1, config.LastImplementedEulerProblemID
+	}
+	return args.Problem, args.Problem
+}
+
+func answer(p Problem) {
+	timedLog.Printf("Problem %d: %s", p.GetID(), p.GetTitle())
 
 	p.CalculateAnswer()
 
-	daftlog.Printf("Answer  %d: %s", p.GetID(), p.GetAnswer())
+	timedLog.Printf("Problem %d answer: %s", p.GetID(), p.GetAnswer())
 
 	if p.IsAnswerVerified() {
-		daftlog.Printf("Project Euler has verified answer %d as correct.", p.GetID())
+		timedLog.Printf("Problem %d as verified as correct by Project Euler.", p.GetID())
 	}
 }

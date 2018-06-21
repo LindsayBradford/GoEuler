@@ -5,13 +5,17 @@
 // the structures that implement it.
 package Problems
 
+import (
+	"log"
+)
+
 // Problem is an interface that defines those functions that
 // allow calling code to successfully interact  with a
 // Euler problem withouth having to know the problem specifics.
 type Problem interface {
-	Initialise()
+	Initialise(*log.Logger)
 
-	GetID() uint
+	GetID() ProblemId
 	GetTitle() string
 	GetDescription() string
 	GetAnswer() string
@@ -24,7 +28,8 @@ type Problem interface {
 // problem structures are expected to reuse via type extension.
 type problemBase struct {
 	Problem
-	id             uint
+	logger         *log.Logger
+	id             ProblemId
 	title          string
 	description    string
 	answer         string
@@ -33,7 +38,8 @@ type problemBase struct {
 
 // The function Initialise() will initialise the content of a ProblemBase
 // structure with reasonable, generic content.
-func (base *problemBase) Initialise() {
+func (base *problemBase) Initialise(logger *log.Logger) {
+	base.logger = logger
 	base.id = 0
 	base.title = "No problem title supplied."
 	base.description = "No problem description supplied."
@@ -43,7 +49,7 @@ func (base *problemBase) Initialise() {
 
 // GetID returns the id number (as supplied on the Euler project) of the
 // relevant Euler problem.
-func (base *problemBase) GetID() uint {
+func (base *problemBase) GetID() ProblemId {
 	return base.id
 }
 

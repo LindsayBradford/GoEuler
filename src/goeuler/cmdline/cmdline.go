@@ -1,5 +1,5 @@
 // GoEuler.go - experimental implementation
-// Command-Line Argument processing pakage
+// Command-Line Argument processing package
 // (c) 2014, Lindsay Bradford
 
 // Package cmdline offers command-line processing for the goeuler code-base.
@@ -13,11 +13,12 @@ import (
 	"goeuler/config"
 )
 
-// Arguments is a struct holding the arguments recived from the command-line when goeuler is run.
+// Arguments is a struct holding the arguments received from the command-line when goeuler is run.
 type Arguments struct {
 	Version bool
 	Licence bool
 	Problem uint
+	AllProblems bool
 }
 
 // Process defines the command-line arguments applicable to goeuler, then processes them for usage by the application.
@@ -26,7 +27,7 @@ func (args *Arguments) Process() {
 	args.process()
 }
 
-// define sets up the comand-line flags that goeuler recognises via the flag package, and parses them into args.
+// define sets up the command-line flags that goeuler recognises via the flag package, and parses them into args.
 func (args *Arguments) define() {
 
 	flag.BoolVar(
@@ -41,6 +42,13 @@ func (args *Arguments) define() {
 		"Licence",
 		false,
 		"Prints the copyright licence this software is released under.",
+	)
+
+	flag.BoolVar(
+		&args.AllProblems,
+		"AllProblems",
+		false,
+		"Answer all problems for which there is code.",
 	)
 
 	flag.UintVar(
@@ -62,6 +70,7 @@ func usageMessage() {
 	fmt.Println("  --Version           Prints the version number of this utility.")
 	fmt.Println("  --Licence           Prints the copyright licence this utility is release under.")
 	fmt.Println("  --Problem <number>  Specifies problem ID to evaluate.")
+	fmt.Println("  --AllProblems       Evaluates all problems for which there is code (overrides --Problem)")
 	os.Exit(0)
 }
 
@@ -82,13 +91,13 @@ func (args *Arguments) process() {
 		os.Exit(0)
 	}
 
-	if args.Problem == 0 {
+	if args.Problem == 0 && args.AllProblems == false {
 		usageMessage()
 	}
 
 	var mustExitWithError = false
 
-	if args.Problem < config.MinEulerProblemID || args.Problem > config.MaxEulerProblemID {
+	if args.AllProblems == false && (args.Problem < config.MinEulerProblemID || args.Problem > config.MaxEulerProblemID) {
 		fmt.Println("Error: Invalid Euler Project ID specified.")
 		mustExitWithError = true
 	}
