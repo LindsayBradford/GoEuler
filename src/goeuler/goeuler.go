@@ -20,9 +20,9 @@ var (
 )
 
 func main() {
-	args.Process()
 	reportVersionAndProblemsImplemented()
 
+	args.Process()
 	minProblemId, maxProblemId := resolveProblemRange()
 
 	if args.Concurrent {
@@ -36,16 +36,12 @@ func answerConcurrently(minProblemId uint, maxProblemId uint) {
 	var wg sync.WaitGroup
 
 	for problemId := minProblemId; problemId <= maxProblemId; problemId++ {
-		problem := builder.
-			OfProblem(problemId).
-			WithLogger(timedLog).
-			Build()
-
 		wg.Add(1)
-		go func() {
+
+		go func(problem uint) {
 			defer wg.Done()
-			answer(problem)
-		}()
+			answer(buildProblem(problem))
+		}(problemId)
 	}
 
 	wg.Wait()
@@ -53,13 +49,15 @@ func answerConcurrently(minProblemId uint, maxProblemId uint) {
 
 func answerSequentially(minProblemId uint, maxProblemId uint) {
 	for problemId := minProblemId; problemId <= maxProblemId; problemId++ {
-		problem := builder.
-			OfProblem(problemId).
-			WithLogger(timedLog).
-			Build()
-
-		answer(problem)
+		answer(buildProblem(problemId))
 	}
+}
+
+func buildProblem(problem uint) Problem {
+	return builder.
+		OfProblem(problem).
+		WithLogger(timedLog).
+		Build()
 }
 
 func reportVersionAndProblemsImplemented() {
