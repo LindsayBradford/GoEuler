@@ -19,6 +19,7 @@ type Arguments struct {
 	Licence bool
 	Problem uint
 	AllProblems bool
+	Concurrent bool
 }
 
 // Process defines the command-line arguments applicable to goeuler, then processes them for usage by the application.
@@ -58,6 +59,13 @@ func (args *Arguments) define() {
 		"Numeric Id of problem as per Projecteuler.net",
 	)
 
+	flag.BoolVar(
+		&args.Concurrent,
+		"Concurrent",
+		false,
+		"Solves problems concurrently (may be faster)",
+	)
+
 	flag.Usage = usageMessage
 
 	flag.Parse()
@@ -71,6 +79,7 @@ func usageMessage() {
 	fmt.Println("  --Licence           Prints the copyright licence this utility is release under.")
 	fmt.Println("  --Problem <number>  Specifies problem ID to evaluate.")
 	fmt.Println("  --AllProblems       Evaluates all problems for which there is code (overrides --Problem)")
+	fmt.Println("  --Concurrent        Sovlves problems concurrently (instead of the sequential default)")
 	os.Exit(0)
 }
 

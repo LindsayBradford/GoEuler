@@ -9,6 +9,7 @@ import (
 	. "goeuler/problem"
 	"log"
 	"os"
+	"sync"
 )
 
 var (
@@ -24,13 +25,40 @@ func main() {
 
 	minProblemId, maxProblemId := resolveProblemRange()
 
+	if args.Concurrent {
+		answerConcurrently(minProblemId, maxProblemId)
+	} else {
+		answerSequentially(minProblemId, maxProblemId)
+	}
+}
+
+func answerConcurrently(minProblemId uint, maxProblemId uint) {
+	var wg sync.WaitGroup
+
 	for problemId := minProblemId; problemId <= maxProblemId; problemId++ {
 		problem := builder.
 			OfProblem(problemId).
 			WithLogger(timedLog).
 			Build()
 
-		  answer(problem)
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			answer(problem)
+		}()
+	}
+
+	wg.Wait()
+}
+
+func answerSequentially(minProblemId uint, maxProblemId uint) {
+	for problemId := minProblemId; problemId <= maxProblemId; problemId++ {
+		problem := builder.
+			OfProblem(problemId).
+			WithLogger(timedLog).
+			Build()
+
+		answer(problem)
 	}
 }
 
