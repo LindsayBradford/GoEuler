@@ -10,6 +10,7 @@ import (
 	"log"
 	"os"
 	"sync"
+	"time"
 )
 
 var (
@@ -25,11 +26,15 @@ func main() {
 	args.Process()
 	minProblemId, maxProblemId := resolveProblemRange()
 
+	startTime := time.Now()
 	if args.Concurrent {
 		answerConcurrently(minProblemId, maxProblemId)
 	} else {
 		answerSequentially(minProblemId, maxProblemId)
 	}
+	endTime := time.Now()
+
+	timedLog.Printf("Problems (%d through %d) took %v to answer\n", minProblemId, maxProblemId, endTime.Sub(startTime))
 }
 
 func answerConcurrently(minProblemId uint, maxProblemId uint) {
