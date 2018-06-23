@@ -15,11 +15,11 @@ import (
 
 // Arguments is a struct holding the arguments received from the command-line when goeuler is run.
 type Arguments struct {
-	Version bool
-	Licence bool
-	Problem uint
+	Version     bool
+	Licence     bool
+	Problem     uint
 	AllProblems bool
-	Concurrent bool
+	Concurrent  bool
 }
 
 // Process defines the command-line arguments applicable to goeuler, then processes them for usage by the application.

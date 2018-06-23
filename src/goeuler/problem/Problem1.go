@@ -5,8 +5,8 @@ package Problems
 
 import (
 	"fmt"
-	"math"
 	"log"
+	"math"
 )
 
 type problem1 struct {

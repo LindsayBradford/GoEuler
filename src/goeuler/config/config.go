@@ -19,5 +19,5 @@ const (
 	MaxEulerProblemID = 497
 
 	// LastImplementedEulerProblemID stores the largest ID of the problems implemented in goeuler.
-	LastImplementedEulerProblemID = 3
+	LastImplementedEulerProblemID = 4
 )

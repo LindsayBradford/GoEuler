@@ -13,7 +13,7 @@ import (
 type ProblemId uint
 
 type ProblemBuilder struct {
-	logger *log.Logger
+	logger    *log.Logger
 	problemId ProblemId
 }
 
@@ -36,6 +36,8 @@ func (pb *ProblemBuilder) Build() Problem {
 		newProblem = new(problem2)
 	case 3:
 		newProblem = new(problem3)
+	case 4:
+		newProblem = new(problem4)
 	default:
 		newProblem = new(problemBase)
 	}
