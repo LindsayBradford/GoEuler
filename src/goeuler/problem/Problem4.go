@@ -46,7 +46,7 @@ func (problem *problem4) CalculateAnswer() {
 			}
 		}
 	}
-	problem.answer = fmt.Sprintf("Problem %d, Answer: %d\n",problem.id, largestFoundPalindrome)
+	problem.answer = fmt.Sprintf("%d", largestFoundPalindrome)
 	problem.answerVerified = true
 }
 

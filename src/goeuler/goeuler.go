@@ -86,6 +86,6 @@ func answer(p Problem) {
 	timedLog.Printf("Problem %d answer: %s", p.GetID(), p.GetAnswer())
 
 	if p.IsAnswerVerified() {
-		timedLog.Printf("Problem %d as verified as correct by Project Euler.", p.GetID())
+		timedLog.Printf("Problem %d is verified as correct by Project Euler.", p.GetID())
 	}
 }
